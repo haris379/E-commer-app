@@ -18,7 +18,7 @@ export const addProduct = async (req, res) => {
     });
 
     res.status(200).json({
-      message: "Product Added Successfulluy",
+      message: "Product Added Successfully",
       product,
     });
   } catch (error) {
