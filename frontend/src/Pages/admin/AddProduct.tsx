@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import api from "../../api/axios.ts";
+import { useNavigate } from "react-router-dom";
 
 interface ProductObject {
   title: string;
@@ -12,6 +13,7 @@ interface ProductObject {
 }
 
 const AddProduct = () => {
+  const navigate = useNavigate();
   const [msg, setMsg] = useState<string>("");
   const [form, setForm] = useState<ProductObject>({
     title: "",
@@ -34,6 +36,9 @@ const AddProduct = () => {
     try {
       const response = await api.post("/product/add-product", form);
       setMsg(response.data.message);
+      setTimeout(()=>{
+        navigate("/admin/products/")
+      }, 1000)
     } catch (error: any) {
       setMsg(error.response?.data?.message || "An error occurred");
     }
