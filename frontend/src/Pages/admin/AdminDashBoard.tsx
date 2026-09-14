@@ -88,13 +88,6 @@ const AdminDashBoard = () => {
                       </td>
                     </tr>
                   ))}
-                  <tr className="border-t border-line hover:bg-paper transition-colors">
-                    {/* 
-                      
-                      
-                    </td> */}
-                  </tr>
-                  {/* ))} */}
                 </tbody>
               </table>
             </div>
