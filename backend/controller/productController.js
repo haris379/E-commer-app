@@ -45,6 +45,24 @@ export const deleteProduct = async (req, res) => {
   }
 };
 
+// Delete Product
+export const updateProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({ message: "No product" });
+    }
+    await Product.findByIdAndUpdate(id, req.body, { new: true });
+    res.status(200).json({
+      message: "Product Updated Successfully",
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error Updating Product", error });
+  }
+};
+
 // Get All Products
 export const getAllProducts = async (req, res) => {
   try {
@@ -78,7 +96,6 @@ export const getAllCategory = async (req, res) => {
 };
 
 // Get product with Category
-
 export const getProductWithCategory = async (req, res) => {
   try {
     const { category } = req.params;
