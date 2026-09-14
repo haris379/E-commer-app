@@ -33,6 +33,12 @@ const AdminDashBoard = () => {
       <div className="flex justify-center items-center">
         <div className="m-20">
           <div className="page-shell max-w-4xl">
+            <Link
+              to="/"
+              className="text-sm  text-black p-3 rounded-2xl"
+            >
+              Back
+            </Link>
             <div className="flex justify-between items-center mb-6">
               <div>
                 <h2 className="font-display text-2xl font-bold mt-1">
