@@ -5,7 +5,7 @@ export const addProduct = async (req, res) => {
   try {
     const { title, description, category, price, image, stock } = req.body;
 
-    if ((!title, !description, !category, !price, !image, !stock)) {
+    if (!title || !description || !category || !price || !image) {
       return res.status(400).json({ message: "Please Enter all Fields" });
     }
 
@@ -32,13 +32,11 @@ export const deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const product = await Product.findOne({ id });
+    const product = await Product.findOne(id);
     if (!product) {
       return res.status(400).json({ message: "No product" });
     }
-    await Product.findOneAndDelete({
-      _id: id,
-    });
+    await Product.findOneAndDelete(id);
     res.status(200).json({
       message: "Product Deleted Successfully",
     });
