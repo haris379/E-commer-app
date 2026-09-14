@@ -62,18 +62,41 @@ export const getAllProducts = async (req, res) => {
 };
 
 // Get All Catagory
-
 export const getAllCategory = async (req, res) => {
   try {
-    const category = await Product.distinct("category");
-    if (!category) {
-      return res.status(404).json({ message: "No category" });
+    const categories = await Product.distinct("category");
+    if (categories.length === 0) {
+      return res.status(404).json({ message: "No category", category: [] });
     }
     res.status(200).json({
       message: "Category Fetched Successfully",
-      category,
+      categories,
     });
   } catch (error) {
     res.status(500).json({ message: "Error Fetching Catrgory", error });
+  }
+};
+
+// Get product with Category
+
+export const getProductWithCategory = async (req, res) => {
+  try {
+    const { category } = req.params;
+
+    const products = await Product.find({ category });
+    if (products.length === 0) {
+      return res.status(404).json({ message: "No product", products: [] });
+    }
+
+    res.status(200).json({
+      message: "Products fetched successfully",
+      category,
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ message: "Error Fetching Product with Catrgory", error });
   }
 };
