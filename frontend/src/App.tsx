@@ -6,6 +6,7 @@ import Signup from "./Pages/Signup";
 import ProfileCard from "./components/ProfileCard";
 import LoginWithID from "./Pages/LoginWithID";
 import api from "./api/axios.ts";
+import AddProduct from "./Pages/admin/AddProduct.tsx";
 
 interface CounterObject {
   id: number | string;
@@ -186,6 +187,7 @@ const App = () => {
         <Route path="/" element={<CounterApp />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login-id/:id" element={<LoginWithID />} />
+        <Route path="/add-product" element={<AddProduct />} />
       </Routes>
     </BrowserRouter>
   );
