@@ -6,7 +6,7 @@ export const addProduct = async (req, res) => {
     const { title, description, category, price, image, stock } = req.body;
 
     if (!title || !description || !category || !price || !image) {
-      return res.status(400).json({ message: "Please Enter all Fields" });
+      return res.status(404).json({ message: "Please Enter all Fields" });
     }
 
     const product = await Product.create({
@@ -32,11 +32,11 @@ export const deleteProduct = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const product = await Product.findOne(id);
+    const product = await Product.findById(id);
     if (!product) {
-      return res.status(400).json({ message: "No product" });
+      return res.status(404).json({ message: "No product" });
     }
-    await Product.findOneAndDelete(id);
+    await Product.findByIdAndDelete(id);
     res.status(200).json({
       message: "Product Deleted Successfully",
     });
@@ -49,14 +49,14 @@ export const deleteProduct = async (req, res) => {
 export const getAllProducts = async (req, res) => {
   try {
     const products = await Product.find();
-    if (!products) {
-      return res.status(400).json({ message: "No product" });
+    if (products.length === 0) {
+      return res.status(404).json({ message: "No product", products: [] });
     }
     res.status(200).json({
       message: "Products Fetched Successfully",
       products,
     });
   } catch (error) {
-    res.status(500).json({ message: "Error Deleting Product", error });
+    res.status(500).json({ message: "Error Fetching Product", error });
   }
 };
