@@ -189,8 +189,8 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login-id/:id" element={<LoginWithID />} />
 
-        <Route path="/admin/" element={<AdminDashBoard />} />
-        <Route path="/admin/add-product" element={<AddProduct />} />
+        <Route path="/admin/products/" element={<AdminDashBoard />} />
+        <Route path="/admin/products/add-product" element={<AddProduct />} />
       </Routes>
     </BrowserRouter>
   );

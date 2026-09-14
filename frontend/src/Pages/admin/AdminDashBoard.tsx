@@ -2,7 +2,7 @@
 const AdminDashBoard = () => {
   return (
     <div>
-      AdminDashBoard
+      
     </div>
   )
 }
