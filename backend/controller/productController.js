@@ -79,6 +79,24 @@ export const getAllProducts = async (req, res) => {
   }
 };
 
+// Get Product with ID
+export const getProduct = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({ message: "No product" });
+    }
+    res.status(200).json({
+      message: "Product Fetched Successfully",
+      product,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error Deleting Product", error });
+  }
+};
+
 // Get All Catagory
 export const getAllCategory = async (req, res) => {
   try {
