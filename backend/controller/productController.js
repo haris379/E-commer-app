@@ -60,3 +60,20 @@ export const getAllProducts = async (req, res) => {
     res.status(500).json({ message: "Error Fetching Product", error });
   }
 };
+
+// Get All Catagory
+
+export const getAllCategory = async (req, res) => {
+  try {
+    const category = await Product.distinct("category");
+    if (!category) {
+      return res.status(404).json({ message: "No category" });
+    }
+    res.status(200).json({
+      message: "Category Fetched Successfully",
+      category,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error Fetching Catrgory", error });
+  }
+};
