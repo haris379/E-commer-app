@@ -43,6 +43,12 @@ const Navbar = ({ onLogout }: NavbarProps) => {
         ) : (
           <div className="flex gap-2 w-full sm:w-auto justify-center">
             <Link
+              to="/admin/"
+              className="btn-primary text-sm py-2 px-4 text-center"
+            >
+              Admin Dashboard
+            </Link>
+            <Link
               to="/signup"
               className="btn-primary text-sm py-2 px-4 text-center"
             >
