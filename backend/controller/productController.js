@@ -44,3 +44,19 @@ export const deleteProduct = async (req, res) => {
     res.status(500).json({ message: "Error Deleting Product", error });
   }
 };
+
+// Get All Products
+export const getAllProducts = async (req, res) => {
+  try {
+    const products = await Product.find();
+    if (!products) {
+      return res.status(400).json({ message: "No product" });
+    }
+    res.status(200).json({
+      message: "Products Fetched Successfully",
+      products,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error Deleting Product", error });
+  }
+};
