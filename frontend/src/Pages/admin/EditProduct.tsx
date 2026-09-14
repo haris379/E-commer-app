@@ -17,14 +17,6 @@ const EditProduct = () => {
   const { id } = useParams();
   const [msg, setMsg] = useState<string>("");
 
-  const [product, setProduct] = useState<ProductObject>({
-    title: "",
-    description: "",
-    category: "",
-    price: undefined,
-    image: "",
-    stock: undefined,
-  });
 
   const [form, setForm] = useState<ProductObject>({
     title: "",
