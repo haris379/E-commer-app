@@ -4,6 +4,7 @@ import api from "../api/axios";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const [msg, setMsg] = useState<string>("");
 
   const loadProducts = async () => {
     try {
@@ -17,6 +18,19 @@ const Home = () => {
   useEffect(() => {
     loadProducts();
   }, []);
+
+  const addToCart = async (productId: any) => {
+    try {
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        alert("Please Login to continue");
+      }
+      const response = await api.post("/cart/addToCart", { userId, productId });
+      setMsg(response.data.message);
+    } catch (error: any) {
+      setMsg(error.response?.data?.message || "Error adding Product in Cart");
+    }
+  };
 
   return (
     <>
@@ -61,7 +75,10 @@ const Home = () => {
             </div>
 
             <div className="text-center m-2 w-full">
-              <button className="inline-block w-60 py-3 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-lg transition duration-200 cursor-pointer">
+              <button
+                onClick={() => addToCart(product._id)}
+                className="inline-block w-60 py-3 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-lg transition duration-200 cursor-pointer"
+              >
                 Add to Cart
               </button>
             </div>
