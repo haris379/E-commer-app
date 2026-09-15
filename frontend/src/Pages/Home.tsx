@@ -15,15 +15,33 @@ const Home = () => {
     }
   };
 
+  const loadCart = async () => {
+    try {
+      const userId = localStorage.getItem("userId");
+      if (!userId) {
+        setCartCount(0);
+        return;
+      }
+      const response = await api.get(`/cart/${userId}`);
+
+      setCartCount(
+        response.data.cart.items.reduce(
+          (total: number, item: any) => total + item.quantity,
+          0,
+        ),
+      );
+    } catch (error: any) {}
+  };
   useEffect(() => {
     loadProducts();
+    loadCart();
   }, []);
-
   const addToCart = async (productId: any) => {
     try {
       const userId = localStorage.getItem("userId");
       if (!userId) {
         alert("Please Login to continue");
+        return;
       }
       const response = await api.post("/cart/addToCart", { userId, productId });
 
@@ -34,7 +52,6 @@ const Home = () => {
           0,
         ),
       );
-
     } catch (error: any) {
       console.log(
         error.response?.data?.message || "Error adding Product in Cart",
