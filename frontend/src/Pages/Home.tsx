@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { ShoppingCart } from "lucide-react";
 import api from "../api/axios";
 
 const Home = () => {
@@ -26,12 +25,14 @@ const Home = () => {
           <Link to="/" className="text-lg sm:text-xl font-bold text-gray-800">
             Home Page{" "}
           </Link>
-          <Link to="/">🛒
-              {(
-                <span className="absolute -top-2 -right-2.5 bg-volt text-white text-[0.65rem] font-mono font-semibold min-w-[1.1rem] h-[1.1rem] flex items-center justify-center rounded-full px-1">
-                  {}
-                </span>
-              )}</Link>
+          <Link to="/">
+            🛒
+            {
+              <span className="absolute -top-2 -right-2.5 bg-volt text-white text-[0.65rem] font-mono font-semibold min-w-[1.1rem] h-[1.1rem] flex items-center justify-center rounded-full px-1">
+                {}
+              </span>
+            }
+          </Link>
         </div>
       </nav>
       {products.length === 0 && <p>No users found</p>}
