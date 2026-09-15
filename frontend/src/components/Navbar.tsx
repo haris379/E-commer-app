@@ -33,6 +33,18 @@ const Navbar = ({ onLogout }: NavbarProps) => {
 
         {userId ? (
           <div className="flex gap-2 w-full sm:w-auto justify-center">
+            <Link
+              to="/home/"
+              className="btn-primary text-sm py-2 px-4 text-center"
+            >
+              Home
+            </Link>
+            <Link
+              to="/admin/products/"
+              className="btn-primary text-sm py-2 px-4 text-center"
+            >
+              Admin Dashboard
+            </Link>
             <button
               onClick={logout}
               className="btn-primary text-sm py-2 px-4 w-full sm:w-auto hover:cursor-pointer"
