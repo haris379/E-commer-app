@@ -4,7 +4,7 @@ import api from "../api/axios";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
-  const [msg, setMsg] = useState<string>("");
+  const [cartCount, setCartCount] = useState(0);
 
   const loadProducts = async () => {
     try {
@@ -26,30 +26,41 @@ const Home = () => {
         alert("Please Login to continue");
       }
       const response = await api.post("/cart/addToCart", { userId, productId });
-      setMsg(response.data.message);
+
+      console.log(response.data);
+      setCartCount(
+        response.data.cart.items.reduce(
+          (total: number, item: any) => total + item.quantity,
+          0,
+        ),
+      );
+
     } catch (error: any) {
-      setMsg(error.response?.data?.message || "Error adding Product in Cart");
+      console.log(
+        error.response?.data?.message || "Error adding Product in Cart",
+      );
     }
   };
 
   return (
     <>
-      <nav className="bg-gray-100 shadow-sm">
+      <nav className="bg-gray-100 shadow-sm sticky top-0 z-50">
         <div className="w-full px-4 sm:px-6 py-3 flex flex-col sm:flex-row gap-3 sm:gap-0 justify-between items-center">
           <Link to="/" className="text-lg sm:text-xl font-bold text-gray-800">
             Home Page{" "}
           </Link>
-          <Link to="/">
+          <Link to="/cart" className="relative">
             🛒
-            {
-              <span className="absolute -top-2 -right-2.5 bg-volt text-white text-[0.65rem] font-mono font-semibold min-w-[1.1rem] h-[1.1rem] flex items-center justify-center rounded-full px-1">
-                {}
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-3 bg-volt text-black text-[0.65rem] font-mono font-semibold min-w-[1.1rem] h-[1.1rem] flex items-center justify-center rounded-full px-1">
+                {cartCount}
               </span>
-            }
+            )}
           </Link>
         </div>
       </nav>
-      {products.length === 0 && <p>No users found</p>}
+
+      {products.length === 0 && <p>No Products found</p>}
       <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 m-3">
         {products.map((product: any) => (
           <div
