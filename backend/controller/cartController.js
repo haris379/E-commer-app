@@ -58,13 +58,9 @@ export const removeItem = async (req, res) => {
 export const getCart = async (req, res) => {
   try {
     const { userId } = req.params;
-    console.log("UserID : ", userId);
 
-    let carts = await Cart.find({});
-    console.log("All Carts", carts);
-
-    let cart = await Cart.findOne({ userId });
-    console.log("Found Cart", cart);
+   
+    let cart = await Cart.findOne({ userId }).populate("items.productId")
 
     if (!cart) {
       return res.status(404).json({ message: "No Cart Found" });
