@@ -53,3 +53,27 @@ export const removeItem = async (req, res) => {
     res.status(500).json({ message: "Error Removing Product in Cart", error });
   }
 };
+
+// Get cart with userId
+export const getCart = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    console.log("UserID : ", userId);
+
+    let carts = await Cart.find({});
+    console.log("All Carts", carts);
+
+    let cart = await Cart.findOne({ userId });
+    console.log("Found Cart", cart);
+
+    if (!cart) {
+      return res.status(404).json({ message: "No Cart Found" });
+    }
+    res.status(200).json({
+      message: "Cart Fetched Successfully",
+      cart,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Error Fetching Cart", error });
+  }
+};
