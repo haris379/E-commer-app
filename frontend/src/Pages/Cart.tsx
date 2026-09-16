@@ -22,9 +22,7 @@ const Cart = () => {
       console.log(error);
     }
   };
-  useEffect(() => {
-    loadCart();
-  }, []);
+
   const removeItem = async (productId: any) => {
     try {
       const userId = localStorage.getItem("userId");
@@ -36,6 +34,7 @@ const Cart = () => {
       console.log(response.data);
 
       setCart(response.data.cart?.items || []);
+      loadCart();
     } catch (error: any) {
       console.log(error);
     }
@@ -58,7 +57,9 @@ const Cart = () => {
       loadCart();
     } catch (error) {}
   };
-
+  useEffect(() => {
+    loadCart();
+  }, [total]);
   return (
     <>
       <div className="min-h-[70vh]">

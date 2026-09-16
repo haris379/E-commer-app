@@ -5,6 +5,7 @@ import api from "../api/axios";
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [cartCount, setCartCount] = useState(0);
+  const [msg, setMsg] = useState<string>("");
 
   const loadProducts = async () => {
     try {
@@ -23,13 +24,13 @@ const Home = () => {
         return;
       }
       const response = await api.get(`/cart/${userId}`);
-
-      setCartCount(
-        response.data.cart.items.reduce(
-          (total: number, item: any) => total + item.quantity,
-          0,
-        ),
-      );
+      setCartCount(response.data.cart.items.length);
+      // setCartCount(
+      //   response.data.cart.items.reduce(
+      //     (total: number, item: any) => total + item.quantity,
+      //     0,
+      //   ),
+      // );
     } catch (error: any) {}
   };
   useEffect(() => {
@@ -44,12 +45,18 @@ const Home = () => {
         return;
       }
       const response = await api.post("/cart/addToCart", { userId, productId });
-      setCartCount(
-        response.data.cart.items.reduce(
-          (total: number, item: any) => total + item.quantity,
-          0,
-        ),
-      );
+      setMsg(response.data.message);
+      setTimeout(() => {
+        setMsg("");
+      }, 1000);
+      setCartCount(response.data.cart.items.length);
+
+      // setCartCount(
+      //   response.data.cart.items.reduce(
+      //     (total: number, item: any) => total + item.quantity,
+      //     0,
+      //   ),
+      // );
     } catch (error: any) {
       console.log(
         error.response?.data?.message || "Error adding Product in Cart",
@@ -73,10 +80,17 @@ const Home = () => {
             )}
           </Link>
         </div>
+        <div className="m-6">
+          {msg && (
+            <div className="mb-5 rounded-lg bg-blue-50 border border-blue-200 px-4 py-3 text-center text-sm text-blue-700">
+              {msg}
+            </div>
+          )}
+        </div>
       </nav>
 
       {products.length === 0 && <p>No Products found</p>}
-      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 m-3">
+      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 m-7">
         {products.map((product: any) => (
           <div
             className="bg-gray-100 w-auto h-105 rounded-xl border flex flex-col items-center"
