@@ -30,9 +30,7 @@ const Home = () => {
           0,
         ),
       );
-    } catch (error: any) {
-      console.log(error)
-    }
+    } catch (error: any) {}
   };
   useEffect(() => {
     loadProducts();
