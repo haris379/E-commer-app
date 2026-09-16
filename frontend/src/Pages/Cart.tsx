@@ -39,9 +39,20 @@ const Cart = () => {
   const increaseQuantity = async (productId: any) => {
     try {
       const userId = localStorage.getItem("userId");
-      const response = await api.put(`/cart/increase/${productId}`, { userId });
+      await api.put(`/cart/increase/${productId}`, { userId });
 
-      console.log(response.data);
+      loadCart();
+    } catch (error) {}
+  };
+  const decreaseQuantity = async (productId: any) => {
+    try {
+      const userId = localStorage.getItem("userId");
+      const r = await api.put(`/cart/decrease/${productId}`, { userId });
+      console.log(r.data.cart.items);
+      const pr = r.data.cart.items.find(
+        (p: any) => p.productId._id === productId,
+      );
+      console.log(pr);
       loadCart();
     } catch (error) {}
   };
@@ -87,12 +98,15 @@ const Cart = () => {
                     <div className="flex items-center gap-3 border border-line rounded-lg px-1">
                       <button
                         type="button"
+                        onClick={() => decreaseQuantity(item.productId._id)}
                         className="w-7 h-7 flex items-center justify-center text-ink-soft hover:text-navy transition-colors"
                       >
                         -
                       </button>
                       <span className="w-6 text-sm text-center text-black">
-                        {item.quantity}
+                        {item.quantity === 0
+                          ? removeItem(item.productId._id)
+                          : item.quantity}
                       </span>
                       <button
                         type="button"
