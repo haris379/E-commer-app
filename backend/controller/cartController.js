@@ -92,7 +92,7 @@ export const increaseQunatity = async (req, res) => {
     await cart.save();
     res.status(200).json({
       message: "Quantity Increases",
-      item,
+      cart,
     });
   } catch (error) {
     res
