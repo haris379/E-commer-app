@@ -4,18 +4,27 @@ import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [cart, setCart] = useState([]);
+  const [total, setTotal] = useState(0);
 
   const loadCart = async () => {
     try {
       const userId = localStorage.getItem("userId");
       const response = await api.get(`/cart/${userId}`);
-      // console.log(response.data.cart.items);
-      setCart(response.data.cart.items);
+
+      const items = response.data.cart.items;
+      setCart(items);
+
+      const totalAmount = items.reduce((total: any, item: any) => {
+        return total + item.quantity * item.productId.price;
+      }, 0);
+      setTotal(totalAmount);
     } catch (error: any) {
       console.log(error);
     }
   };
-
+  useEffect(() => {
+    loadCart();
+  }, []);
   const removeItem = async (productId: any) => {
     try {
       const userId = localStorage.getItem("userId");
@@ -49,10 +58,6 @@ const Cart = () => {
       loadCart();
     } catch (error) {}
   };
-
-  useEffect(() => {
-    loadCart();
-  }, []);
 
   return (
     <>
@@ -134,6 +139,11 @@ const Cart = () => {
               })}
             </div>
           )}
+          <div className="">
+            <h2>
+              Total Amount : <span>{total}</span>{" "}
+            </h2>
+          </div>
         </div>
       </div>
     </>
