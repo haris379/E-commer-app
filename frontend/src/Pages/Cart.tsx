@@ -16,10 +16,6 @@ const Cart = () => {
     }
   };
 
-  useEffect(() => {
-    loadCart();
-  }, []);
-
   const removeItem = async (productId: any) => {
     try {
       const userId = localStorage.getItem("userId");
@@ -28,8 +24,8 @@ const Cart = () => {
         userId,
         productId,
       });
-      // console.log(response.data);
-      await loadCart();
+      console.log(response.data);
+
       setCart(response.data.cart?.items || []);
     } catch (error: any) {
       console.log(error);
@@ -39,99 +35,104 @@ const Cart = () => {
   const increaseQuantity = async (productId: any) => {
     try {
       const userId = localStorage.getItem("userId");
-      await api.put(`/cart/increase/${productId}`, { userId });
-
+      const response = await api.put(`/cart/increase/${productId}`, { userId });
+      setCart(response.data.cart.items);
       loadCart();
     } catch (error) {}
   };
   const decreaseQuantity = async (productId: any) => {
     try {
       const userId = localStorage.getItem("userId");
-      const r = await api.put(`/cart/decrease/${productId}`, { userId });
-      console.log(r.data.cart.items);
-      const pr = r.data.cart.items.find(
-        (p: any) => p.productId._id === productId,
-      );
-      console.log(pr);
+      const response = await api.put(`/cart/decrease/${productId}`, { userId });
+      setCart(response.data.cart.items);
+
       loadCart();
     } catch (error) {}
   };
 
+  useEffect(() => {
+    loadCart();
+  }, []);
+
   return (
     <>
       <div className="min-h-[70vh]">
-        <div className="max-w-4xl mx-auto px-4 py-8">
-          <h1 className="font-bold text-xl text-ink mb-6">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
+          <div className="mb-8">
             <Link
               to="/home/"
               className="flex items-center gap-2 text-sm text-ink-soft hover:text-navy mb-4"
             >
               ← Back
             </Link>
-            Your Cart
-          </h1>
+            <h1 className="font-bold text-2xl text-ink">Your Cart</h1>
+          </div>
 
           {cart.length === 0 ? (
-            <p>No Item in your cart</p>
+            <div className="card py-12 text-center">
+              <p className="text-ink-soft">No Item in your cart</p>
+            </div>
           ) : (
-            cart.map((item: any) => {
-              if (!item.productId) return null;
-              return (
-                <div key={item._id} className="space-y-3 p-4">
-                  <div className="card flex flex-wrap items-center justify-around gap-4">
-                    <div className="flex items-center gap-4">
-                      <img
-                        src={item.productId.image}
-                        alt={item.productId.title}
-                        className="w-16 h-16 object-cover rounded-md bg-paper"
-                      />
-                      <div>
-                        <h2 className="font-semibold text-ink">
-                          {item.productId.title}
-                        </h2>
-                        <p className="text-sm text-ink-soft">
-                          {item.productId.price}
-                        </p>
+            <div className="space-y-4">
+              {cart.map((item: any) => {
+                if (!item.productId) return null;
+                return (
+                  <div key={item._id} className="card p-4 sm:p-5">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-5">
+                      <div className="flex items-center gap-4 flex-1 min-w-0">
+                        <img
+                          src={item.productId.image}
+                          alt={item.productId.title}
+                          className="w-20 h-20 object-cover rounded-lg bg-paper shrink-0"
+                        />
+                        <div className="min-w-0">
+                          <h2 className="font-semibold text-ink truncate">
+                            {item.productId.title}
+                          </h2>
+                          <p className="text-sm text-ink-soft mt-1">
+                            {item.productId.price}
+                          </p>
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="flex items-center gap-3 border border-line rounded-lg px-1">
-                      <button
-                        type="button"
-                        onClick={() => decreaseQuantity(item.productId._id)}
-                        className="w-7 h-7 flex items-center justify-center text-ink-soft hover:text-navy transition-colors"
-                      >
-                        -
-                      </button>
-                      <span className="w-6 text-sm text-center text-black">
-                        {item.quantity === 0
-                          ? removeItem(item.productId._id)
-                          : item.quantity}
-                      </span>
-                      <button
-                        type="button"
-                        onClick={() => increaseQuantity(item.productId._id)}
-                        className="w-7 h-7 flex items-center justify-center text-ink-soft hover:text-navy transition-colors"
-                      >
-                        +
-                      </button>
-                    </div>
+                      <div className="flex items-center gap-3 border border-line rounded-lg px-2 py-1 w-fit">
+                        <button
+                          type="button"
+                          onClick={() => decreaseQuantity(item.productId._id)}
+                          className="w-8 h-8 flex items-center justify-center text-lg text-ink-soft hover:text-navy transition-colors"
+                        >
+                          -
+                        </button>
+                        <span className="w-6 text-sm text-center text-black">
+                          {item.quantity}
+                        </span>
+                        <button
+                          type="button"
+                          onClick={() => increaseQuantity(item.productId._id)}
+                          className="w-8 h-8 flex items-center justify-center text-lg text-ink-soft hover:text-navy transition-colors"
+                        >
+                          +
+                        </button>
+                      </div>
 
-                    <div>
-                      <p className="text-sm font-semibold text-ink">
-                        Rs. 4,500
-                      </p>
+                      <div className="sm:w-28 text-left sm:text-right">
+                        {" "}
+                        <p className="text-sm font-semibold text-ink">
+                          {" "}
+                          Rs. {item.quantity * item.productId.price}{" "}
+                        </p>{" "}
+                      </div>
+                      <button
+                        onClick={() => removeItem(item.productId._id)}
+                        className="text-sm bg-red-700 text-white px-4 py-2 rounded-lg hover:bg-red-800 transition-colors w-full sm:w-auto"
+                      >
+                        Delete
+                      </button>
                     </div>
-                    <button
-                      onClick={() => removeItem(item.productId._id)}
-                      className="text-sm bg-red-700 text-white p-3 rounded-2xl"
-                    >
-                      Delete
-                    </button>
                   </div>
-                </div>
-              );
-            })
+                );
+              })}
+            </div>
           )}
         </div>
       </div>

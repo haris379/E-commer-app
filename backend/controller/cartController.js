@@ -48,6 +48,8 @@ export const removeItem = async (req, res) => {
       });
     }
     await cart.save();
+    await cart.populate("items.productId");
+
     res.json({
       message: "Item removed from cart",
       cart,
@@ -90,6 +92,8 @@ export const increaseQunatity = async (req, res) => {
     const item = cart.items.find((p) => p.productId.toString() === productId);
     item.quantity += 1;
     await cart.save();
+    await cart.populate("items.productId");
+
     res.status(200).json({
       message: "Quantity Increases",
       cart,
@@ -111,11 +115,16 @@ export const decreaseQunatity = async (req, res) => {
       return res.status(404).json({ message: "No Cart Found" });
     }
     const item = cart.items.find((p) => p.productId.toString() === productId);
-    if (item.quantity === 0) {
-      return res.status(401).json({ message: "No Decrement" });
+    if (item.quantity <= 1) {
+      cart.items = cart.items.filter(
+        (i) => i.productId.toString() !== productId,
+      );
+    } else {
+      item.quantity -= 1;
     }
-    item.quantity -= 1;
     await cart.save();
+    await cart.populate("items.productId");
+
     res.status(200).json({
       message: "Quantity Decreases",
       cart,
