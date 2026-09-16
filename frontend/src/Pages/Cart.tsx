@@ -9,7 +9,7 @@ const Cart = () => {
     try {
       const userId = localStorage.getItem("userId");
       const response = await api.get(`/cart/${userId}`);
-      console.log(response.data.cart.items);
+      // console.log(response.data.cart.items);
       setCart(response.data.cart.items);
     } catch (error: any) {
       console.log(error);
@@ -34,6 +34,16 @@ const Cart = () => {
     } catch (error: any) {
       console.log(error);
     }
+  };
+
+  const increaseQuantity = async (productId: any) => {
+    try {
+      const userId = localStorage.getItem("userId");
+      const response = await api.put(`/cart/increase/${productId}`, { userId });
+
+      console.log(response.data);
+      loadCart();
+    } catch (error) {}
   };
 
   return (
@@ -86,6 +96,7 @@ const Cart = () => {
                       </span>
                       <button
                         type="button"
+                        onClick={() => increaseQuantity(item.productId._id)}
                         className="w-7 h-7 flex items-center justify-center text-ink-soft hover:text-navy transition-colors"
                       >
                         +
