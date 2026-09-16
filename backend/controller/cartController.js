@@ -42,7 +42,10 @@ export const removeItem = async (req, res) => {
 
     if (cart.items.length === 0) {
       await Cart.findByIdAndDelete(cart._id);
-      return res.json({ message: "Cart deleted" });
+      return res.status(200).json({
+        message: "Cart is now empty",
+        cart: { items: [] },
+      });
     }
     await cart.save();
     res.json({
@@ -59,8 +62,7 @@ export const getCart = async (req, res) => {
   try {
     const { userId } = req.params;
 
-   
-    let cart = await Cart.findOne({ userId }).populate("items.productId")
+    let cart = await Cart.findOne({ userId }).populate("items.productId");
 
     if (!cart) {
       return res.status(404).json({ message: "No Cart Found" });
