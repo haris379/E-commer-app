@@ -100,3 +100,29 @@ export const increaseQunatity = async (req, res) => {
       .json({ message: "Error Increasing Quantity of Product in Cart", error });
   }
 };
+
+export const decreaseQunatity = async (req, res) => {
+  try {
+    const { userId } = req.body;
+    const { productId } = req.params;
+
+    let cart = await Cart.findOne({ userId });
+    if (!cart) {
+      return res.status(404).json({ message: "No Cart Found" });
+    }
+    const item = cart.items.find((p) => p.productId.toString() === productId);
+    if (item.quantity === 0) {
+      return res.status(401).json({ message: "No Decrement" });
+    }
+    item.quantity -= 1;
+    await cart.save();
+    res.status(200).json({
+      message: "Quantity Increases",
+      cart,
+    });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ message: "Error Increasing Quantity of Product in Cart", error });
+  }
+};
