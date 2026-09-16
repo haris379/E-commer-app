@@ -92,7 +92,7 @@ export const increaseQunatity = async (req, res) => {
     await cart.save();
     res.status(200).json({
       message: "Quantity Increases",
-      cart,
+      item,
     });
   } catch (error) {
     res
@@ -117,12 +117,12 @@ export const decreaseQunatity = async (req, res) => {
     item.quantity -= 1;
     await cart.save();
     res.status(200).json({
-      message: "Quantity Increases",
-      cart,
+      message: "Quantity Decreases",
+      item,
     });
   } catch (error) {
     res
       .status(500)
-      .json({ message: "Error Increasing Quantity of Product in Cart", error });
+      .json({ message: "Error Decreases Quantity of Product in Cart", error });
   }
 };
