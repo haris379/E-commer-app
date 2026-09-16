@@ -44,8 +44,6 @@ const Home = () => {
         return;
       }
       const response = await api.post("/cart/addToCart", { userId, productId });
-
-      console.log(response.data);
       setCartCount(
         response.data.cart.items.reduce(
           (total: number, item: any) => total + item.quantity,
