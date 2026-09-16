@@ -121,11 +121,9 @@ const Cart = () => {
                       </div>
 
                       <div className="sm:w-28 text-left sm:text-right">
-                        {" "}
                         <p className="text-sm font-semibold text-ink">
-                          {" "}
-                          Rs. {item.quantity * item.productId.price}{" "}
-                        </p>{" "}
+                          Rs. {item.quantity * item.productId.price}
+                        </p>
                       </div>
                       <button
                         onClick={() => removeItem(item.productId._id)}
@@ -141,7 +139,7 @@ const Cart = () => {
           )}
           <div className="">
             <h2>
-              Total Amount : <span>{total}</span>{" "}
+              Total Amount : <span>{total}</span>
             </h2>
           </div>
         </div>
