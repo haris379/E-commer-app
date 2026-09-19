@@ -66,10 +66,10 @@ const Cart = () => {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8">
           <div className="mb-8">
             <Link
-              to="/home/"
+              to="/"
               className="flex items-center gap-2 text-sm text-ink-soft hover:text-navy mb-4"
             >
-              ← Back
+              Back to Home
             </Link>
             <h1 className="font-bold text-2xl text-ink">Your Cart</h1>
           </div>
