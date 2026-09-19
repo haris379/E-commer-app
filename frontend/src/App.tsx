@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Signup from "./Pages/Signup";
 import LoginWithID from "./Pages/LoginWithID";
 import AddProduct from "./Pages/admin/AddProduct.tsx";
@@ -7,10 +7,23 @@ import EditProduct from "./Pages/admin/EditProduct.tsx";
 import Home from "./Pages/Home.tsx";
 import Cart from "./Pages/Cart.tsx";
 import CounterApp from "./Pages/CounterApp.tsx";
+import Navbar from "./components/Navbar.tsx";
 
 const App = () => {
+  const navigate = useNavigate();
+
+  const handlelogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    localStorage.removeItem("userName");
+
+    navigate("/");
+  };
+
   return (
-    <BrowserRouter>
+    <>
+      <Navbar onLogout={handlelogout} />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
@@ -25,7 +38,7 @@ const App = () => {
         <Route path="/home/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
       </Routes>
-    </BrowserRouter>
+    </>
   );
 };
 
