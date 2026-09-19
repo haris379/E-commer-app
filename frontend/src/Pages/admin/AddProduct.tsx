@@ -38,7 +38,7 @@ const AddProduct = () => {
       setMsg(response.data.message);
       setTimeout(()=>{
         navigate("/admin/products/")
-      }, 1000)
+      }, 500)
     } catch (error: any) {
       setMsg(error.response?.data?.message || "An error occurred");
     }
