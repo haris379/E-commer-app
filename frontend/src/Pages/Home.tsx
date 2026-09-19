@@ -1,12 +1,6 @@
 import { useState, useEffect } from "react";
 import api from "../api/axios";
 
-// const defaultCounters = [
-//   { id: 1, value: 0 },
-//   { id: 2, value: 0 },
-//   { id: 3, value: 0 },
-//   { id: 4, value: 0 },
-// ];
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [msg, setMsg] = useState<string>("");
