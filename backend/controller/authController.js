@@ -29,11 +29,50 @@ export const signup = async (req, res) => {
 
     res.status(200).json({ message: "User registered Successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    res.status(500).json({ message: "Error Signup", error });
   }
 };
 
 // Login
+export const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.json({ message: "Input All Fields" });
+    }
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: "User dont have an account" });
+    }
+
+    const match = await bcrypt.compare(password, user.password);
+
+    if (!match) {
+      return res.status(400).json({ message: "Incorrect Password" });
+    }
+
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRE_KEY, {
+      expiresIn: "5h",
+    });
+
+    res.status(200).json({
+      message: "Login Successfully",
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      },
+    });
+
+    res.status(200).json({ message: "User Login Successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Error Login", error });
+  }
+};
+
+// LoginwithID
 export const loginSpecificUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -58,7 +97,7 @@ export const loginSpecificUser = async (req, res) => {
     });
 
     res.status(200).json({
-      message: "Login Successfully",
+      message: "Login with ID Successfully",
       token,
       user: {
         id: user._id,
@@ -67,6 +106,6 @@ export const loginSpecificUser = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error });
+    res.status(500).json({ message: "Error Login with ID", error });
   }
 };
