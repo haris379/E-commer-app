@@ -71,6 +71,9 @@ const Home = () => {
           <Link to="/" className="text-lg sm:text-xl font-bold text-gray-800">
             Home Page{" "}
           </Link>
+           <Link to="/counter-app" className="relative">
+            Counter App
+          </Link>
           <Link to="/cart" className="relative">
             🛒
             {cartCount > 0 && (

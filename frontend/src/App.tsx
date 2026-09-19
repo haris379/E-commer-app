@@ -16,6 +16,8 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/login-id/:id" element={<LoginWithID />} />
 
+        <Route path="/counter-app" element={<CounterApp />} />
+
         <Route path="/admin/products/" element={<AdminDashBoard />} />
         <Route path="/admin/products/add-product" element={<AddProduct />} />
         <Route path="/admin/products/update/:id" element={<EditProduct />} />
