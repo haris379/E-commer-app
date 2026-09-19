@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Counters from "../components/Counters.tsx";
-import Navbar from "../components/Navbar.tsx";
 import ProfileCard from "../components/ProfileCard.tsx";
 import api from "../api/axios.ts";
 interface CounterObject {
@@ -17,7 +15,6 @@ const defaultCounters = [
 ];
 const CounterApp = () => {
   const token = localStorage.getItem("token");
-  const navigate = useNavigate();
 
   const [counters, setCounters] = useState<CounterObject[]>(defaultCounters);
 
@@ -103,16 +100,6 @@ const CounterApp = () => {
     );
   };
 
-  const handlelogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userId");
-    localStorage.removeItem("userName");
-
-    setCounters(defaultCounters);
-
-    navigate("/");
-  };
-
   const handleAdd = async () => {
     try {
       await api.post("/counter/add");
@@ -151,8 +138,6 @@ const CounterApp = () => {
 
   return (
     <>
-      <Navbar onLogout={handlelogout} />
-
       <h1 className="mt-5 sm:mt-6 mb-4 px-4 text-2xl sm:text-3xl font-bold text-center">
         Counter App
         <span className="ml-2 px-2.5 py-0.5 text-xs sm:text-sm font-semibold text-white bg-blue-600 rounded-full">

@@ -11,7 +11,7 @@ const LoginWithID = () => {
   const { id } = useParams();
   const { state } = useLocation();
   const { name, email } = state;
-  
+
   const [form, setForm] = useState<FormObj>({
     password: "",
   });
@@ -38,6 +38,7 @@ const LoginWithID = () => {
       setTimeout(() => {
         navigate("/");
       }, 250);
+      window.dispatchEvent(new Event("authChanged"));
     } catch (error: any) {
       console.log(error);
 

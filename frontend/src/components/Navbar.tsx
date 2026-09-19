@@ -7,15 +7,35 @@ interface NavbarProps {
 }
 
 const Navbar = ({ onLogout }: NavbarProps) => {
-  const userId = localStorage.getItem("userId");
-  const userName = localStorage.getItem("userName");
+  const [userId, setUserId] = useState(localStorage.getItem("userId"));
+  const [userName, setUserName] = useState(localStorage.getItem("userName"));
   const navigate = useNavigate();
   const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     loadCart();
+
+    const handleAuthChange = () => {
+      const id = localStorage.getItem("userId");
+      const name = localStorage.getItem("userName");
+
+      setUserId(id);
+      setUserName(name);
+
+      if (id) {
+        loadCart();
+      } else {
+        setCartCount(0);
+      }
+    };
+
+    window.addEventListener("authChanged", handleAuthChange);
     window.addEventListener("cartUpdated", loadCart);
-    return () => window.removeEventListener("cartUpdated", loadCart);
+
+    return () => {
+      window.removeEventListener("authChanged", handleAuthChange);
+      window.removeEventListener("cartUpdated", loadCart);
+    };
   }, []);
 
   const loadCart = async () => {
