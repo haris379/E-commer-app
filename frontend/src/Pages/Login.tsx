@@ -51,7 +51,7 @@ const Login = () => {
         <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
           {/* Heading */}
           <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-800">Login to your Account</h1>
+            <h1 className="text-3xl font-bold text-gray-800">Login</h1>
 
             <p className="text-gray-500 mt-2">Login to get started</p>
           </div>
