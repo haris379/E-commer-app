@@ -102,12 +102,6 @@ const Navbar = ({ onLogout }: NavbarProps) => {
           >
             Counter App
           </Link>
-          <Link
-            to="/login"
-            className="btn-primary text-sm py-2 px-4 text-center"
-          >
-            Login
-          </Link>
 
           {userId ? (
             <button
@@ -117,12 +111,20 @@ const Navbar = ({ onLogout }: NavbarProps) => {
               Logout
             </button>
           ) : (
-            <Link
-              to="/signup"
-              className="btn-primary text-sm py-2 px-4 text-center"
-            >
-              Sign up
-            </Link>
+            <div className="flex gap-2 w-full sm:w-auto justify-center items-center">
+              <Link
+                to="/login"
+                className="btn-primary text-sm py-2 px-4 text-center"
+              >
+                Login
+              </Link>
+              <Link
+                to="/signup"
+                className="btn-primary text-sm py-2 px-4 text-center"
+              >
+                Sign up
+              </Link>
+            </div>
           )}
         </div>
       </div>
