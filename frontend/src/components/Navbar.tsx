@@ -70,7 +70,7 @@ const Navbar = ({ onLogout }: NavbarProps) => {
 
   return (
     <nav className="bg-gray-100 shadow-sm sticky top-0 z-50">
-      <div className="w-full px-4 sm:px-6 py-3 flex flex-col sm:flex-row gap-3 sm:gap-0 justify-between items-center">
+      <div className="w-full px-4 sm:px-6 py-3 flex flex-col gap-3 items-center">
         <Link to="/" className="text-lg sm:text-xl font-bold text-gray-800">
           E-commerce App
         </Link>
@@ -81,8 +81,8 @@ const Navbar = ({ onLogout }: NavbarProps) => {
           </h2>
         )}
 
-        <div className="flex gap-2 w-full sm:w-auto justify-center items-center">
-          <Link to="/cart" className="relative">
+        <div className="flex flex-wrap gap-2 w-full justify-center items-center">
+          <Link to="/cart" className="relative p-2">
             🛒
             {cartCount > 0 && (
               <span className="absolute -top-2 -right-3 bg-volt text-black text-[0.65rem] font-mono font-semibold min-w-[1.1rem] h-[1.1rem] flex items-center justify-center rounded-full px-1">
@@ -91,18 +91,21 @@ const Navbar = ({ onLogout }: NavbarProps) => {
             )}
           </Link>
 
-          <Link to="/" className="btn-primary text-sm py-2 px-4 text-center">
+          <Link
+            to="/"
+            className="btn-primary text-xs sm:text-sm py-2 px-3 sm:px-4 text-center"
+          >
             Home
           </Link>
           <Link
             to="/admin/products/"
-            className="btn-primary text-sm py-2 px-4 text-center"
+            className="btn-primary text-xs sm:text-sm py-2 px-3 sm:px-4 text-center whitespace-nowrap"
           >
             Admin Dashboard
           </Link>
           <Link
             to="/counter-app"
-            className="btn-primary text-sm py-2 px-4 text-center"
+            className="btn-primary text-xs sm:text-sm py-2 px-3 sm:px-4 text-center"
           >
             Counter App
           </Link>
@@ -110,21 +113,21 @@ const Navbar = ({ onLogout }: NavbarProps) => {
           {userId ? (
             <button
               onClick={logout}
-              className="btn-primary text-sm py-2 px-4 w-full sm:w-auto hover:cursor-pointer"
+              className="btn-primary text-xs sm:text-sm py-2 px-3 sm:px-4 text-center"
             >
               Logout
             </button>
           ) : (
-            <div className="flex gap-2 w-full sm:w-auto justify-center items-center">
+            <div>
               <Link
                 to="/login"
-                className="btn-primary text-sm py-2 px-4 text-center"
+                className="btn-primary text-xs sm:text-sm py-2 px-3 sm:px-4 text-center"
               >
                 Login
               </Link>
               <Link
                 to="/signup"
-                className="btn-primary text-sm py-2 px-4 text-center"
+                className="btn-primary text-xs sm:text-sm py-2 px-3 sm:px-4 text-center"
               >
                 Sign up
               </Link>
