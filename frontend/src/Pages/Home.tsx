@@ -83,7 +83,7 @@ const Home = () => {
             <div className="text-center m-2 w-full">
               <button
                 onClick={() => addToCart(product._id)}
-                className="inline-block w-60 py-3 bg-gray-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-200 cursor-pointer"
+                className="inline-block w-60 py-3 bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-200 cursor-pointer"
               >
                 Add to Cart
               </button>
