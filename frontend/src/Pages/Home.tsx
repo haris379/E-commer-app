@@ -90,18 +90,16 @@ const Home = () => {
       </nav>
 
       {products.length === 0 && <p>No Products found</p>}
-      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 m-7">
+      <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 m-7">
         {products.map((product: any) => (
           <div
-            className="bg-gray-100 w-auto h-105 rounded-xl border flex flex-col items-center"
+            className="bg-gray-100 w-max h-80 rounded-xl border flex flex-col items-center"
             key={product._id}
           >
-            <h2 className="text-center m-2 font-bold">User Profile</h2>
-
             <img
               src={product.image}
               alt={product.title}
-              className="p-3 h-1/2 w-auto"
+              className="p-3 h-1/2 w-auto object-contain"
             />
 
             <div className="m-4 font-semibold">
@@ -110,14 +108,14 @@ const Home = () => {
               </p>
 
               <p>
-                <span className="font-bold">{product.price}</span>
+                <span className="font-bold">Rs. {product.price}</span>
               </p>
             </div>
 
             <div className="text-center m-2 w-full">
               <button
                 onClick={() => addToCart(product._id)}
-                className="inline-block w-60 py-3 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-lg transition duration-200 cursor-pointer"
+                className="inline-block w-60 py-3 bg-gray-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-200 cursor-pointer"
               >
                 Add to Cart
               </button>
