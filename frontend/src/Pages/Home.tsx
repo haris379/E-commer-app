@@ -3,6 +3,7 @@ import api from "../api/axios";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const [category, setCategory] = useState([]);
   const [msg, setMsg] = useState<string>("");
 
   const loadProducts = async () => {
@@ -43,9 +44,30 @@ const Home = () => {
       );
     }
   };
+  const getAllCategories = async () => {
+    try {
+      const response = await api.get("/product/allCategories");
+      setCategory(response.data.categories);
+    } catch (error) {}
+  };
 
+  const handleCategoryChange = async (selectedcat: string) => {
+    try {
+      if (!selectedcat) {
+        loadProducts();
+        return;
+      }
+      const response = await api.get(
+        `/product/categories?category=${encodeURIComponent(selectedcat)}`,
+      );
+      setProducts(response.data.products);
+    } catch (error: any) {
+      console.log(error.response?.data?.message || "Error filtering products");
+    }
+  };
   useEffect(() => {
     loadProducts();
+    getAllCategories();
   }, []);
 
   return (
@@ -57,6 +79,21 @@ const Home = () => {
           </div>
         )}
       </div>
+
+      <div
+        className="flex justify-center items-center"
+        onChange={(e: any) => handleCategoryChange(e.target.value)}
+      >
+        <select className=" border p-2 input-field sm:w-52">
+          <option value="">All Categories</option>
+          {category.map((cat) => (
+            <option value={cat} key={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
+      </div>
+
       {products.length === 0 && <p>No Products found</p>}
       <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 m-7">
         {products.map((product: any) => (
