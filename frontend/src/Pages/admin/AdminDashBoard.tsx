@@ -30,16 +30,13 @@ const AdminDashBoard = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center">
-        <div className="m-20">
-          <div className="page-shell max-w-4xl">
-            <Link
-              to="/"
-              className="text-sm  text-black p-3 rounded-2xl"
-            >
+      <div className="flex justify-center items-center px-4 sm:px-6">
+        <div className="my-6 sm:my-10 w-full">
+          <div className="page-shell w-full max-w-4xl">
+            <Link to="/" className="text-sm  text-black p-3 rounded-2xl">
               Back
             </Link>
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
               <div>
                 <h2 className="font-display text-2xl font-bold mt-1">
                   Product List
@@ -47,14 +44,14 @@ const AdminDashBoard = () => {
               </div>
               <Link
                 to="/admin/products/add-product"
-                className="text-sm bg-blue-700 text-white p-3 rounded-2xl"
+                className="text-sm bg-blue-700 text-white px-4 py-3 rounded-2xl w-full sm:w-auto text-center"
               >
                 + Add New Product
               </Link>
             </div>
 
             <div className="card overflow-x-auto">
-              <table className="w-full min-w-140  border border-black rounded-b-full2xl text-sm">
+              <table className="w-full min-w-160 border border-black text-sm">
                 <thead>
                   <tr className="bg-navy text-blacl text-left">
                     <th className="px-4 py-3 font-medium">Title</th>
@@ -87,7 +84,7 @@ const AdminDashBoard = () => {
                         </Link>
                         <button
                           onClick={() => handleDelete(product._id)}
-                          className="text-sm bg-red-700 text-white p-3 rounded-2xl"
+                          className="text-sm bg-red-700 text-white px-3 py-2 rounded-xl"
                         >
                           Delete
                         </button>

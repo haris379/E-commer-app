@@ -94,8 +94,10 @@ const Home = () => {
         </select>
       </div>
 
-      {products.length === 0 && <p>No Products found</p>}
-      <div className=" grid grid-cols-1 sm:grid-cols-1 md:grid-cols-4 gap-2 m-7">
+      {products.length === 0 && (
+        <p className="text-center">No Products found</p>
+      )}
+      <div className=" grid grid-cols-1 sm:grid-cols-1 justify-center md:grid-cols-4 gap-2 m-7">
         {products.map((product: any) => (
           <div
             className="bg-gray-100 w-max h-80 rounded-xl border flex flex-col items-center"
