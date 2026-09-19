@@ -7,11 +7,12 @@ import userRoutes from "./Routes/userRoutes.js";
 import counterRoutes from "./Routes/counterRoutes.js";
 import productRoutes from "./Routes/productRoutes.js";
 import cartRoutes from "./Routes/cartRoutes.js";
-dotenv.config();
 
+dotenv.config();
 const app = express();
-app.use(cors());
+
 app.use(express.json());
+app.use(cors({ origin: process.env.FRONTEND_URL || "*" }));
 
 app.use(async (req, res, next) => {
   try {
@@ -28,6 +29,13 @@ app.use("/api/counter", counterRoutes);
 app.use("/api/product", productRoutes);
 app.use("/api/cart", cartRoutes);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server is running on Port ${process.env.PORT}`);
-});
+if (!process.env.VERCEL) {
+  const port = process.env.PORT || 3001;
+  app.listen(port, () => console.log(`Server is running on Port ${port}`));
+}
+
+export default app;
+
+// app.listen(process.env.PORT, () => {
+//   console.log(`Server is running on Port ${process.env.PORT}`);
+// });
