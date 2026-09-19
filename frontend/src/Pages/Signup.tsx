@@ -135,7 +135,7 @@ const Signup = () => {
             <span>Already have an account? </span>
 
             <Link
-              to="/login"
+              to="/counter-app"
               className="text-blue-600 hover:text-blue-700 font-semibold"
             >
               Login
