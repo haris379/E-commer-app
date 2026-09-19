@@ -59,7 +59,11 @@ const Navbar = ({ onLogout }: NavbarProps) => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     localStorage.removeItem("userName");
+    setUserId(null);
+    setUserName(null);
     setCartCount(0);
+
+    window.dispatchEvent(new Event("authChanged"));
     onLogout();
     navigate("/");
   };
