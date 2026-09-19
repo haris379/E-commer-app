@@ -102,6 +102,12 @@ const Navbar = ({ onLogout }: NavbarProps) => {
           >
             Counter App
           </Link>
+          <Link
+            to="/login"
+            className="btn-primary text-sm py-2 px-4 text-center"
+          >
+            Login
+          </Link>
 
           {userId ? (
             <button
