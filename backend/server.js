@@ -13,7 +13,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-connectDB();
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
