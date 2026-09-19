@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import api from "../api/axios";
 
+// const defaultCounters = [
+//   { id: 1, value: 0 },
+//   { id: 2, value: 0 },
+//   { id: 3, value: 0 },
+//   { id: 4, value: 0 },
+// ];
 const Home = () => {
   const [products, setProducts] = useState([]);
-  const [cartCount, setCartCount] = useState(0);
   const [msg, setMsg] = useState<string>("");
 
   const loadProducts = async () => {
@@ -16,27 +20,6 @@ const Home = () => {
     }
   };
 
-  const loadCart = async () => {
-    try {
-      const userId = localStorage.getItem("userId");
-      if (!userId) {
-        setCartCount(0);
-        return;
-      }
-      const response = await api.get(`/cart/${userId}`);
-      setCartCount(response.data.cart.items.length);
-      // setCartCount(
-      //   response.data.cart.items.reduce(
-      //     (total: number, item: any) => total + item.quantity,
-      //     0,
-      //   ),
-      // );
-    } catch (error: any) {}
-  };
-  useEffect(() => {
-    loadProducts();
-    loadCart();
-  }, []);
   const addToCart = async (productId: any) => {
     try {
       const userId = localStorage.getItem("userId");
@@ -49,7 +32,10 @@ const Home = () => {
       setTimeout(() => {
         setMsg("");
       }, 1000);
-      setCartCount(response.data.cart.items.length);
+
+      window.dispatchEvent(new Event("cartUpdated")); // <-- add this
+
+      // setCartCount(response.data.cart.items.length);
 
       // setCartCount(
       //   response.data.cart.items.reduce(
@@ -64,34 +50,19 @@ const Home = () => {
     }
   };
 
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
   return (
     <>
-      <nav className="bg-gray-100 shadow-sm sticky top-0 z-50">
-        <div className="w-full px-4 sm:px-6 py-3 flex flex-col sm:flex-row gap-3 sm:gap-0 justify-between items-center">
-          <Link to="/" className="text-lg sm:text-xl font-bold text-gray-800">
-            Home Page{" "}
-          </Link>
-           <Link to="/counter-app" className="relative">
-            Counter App
-          </Link>
-          <Link to="/cart" className="relative">
-            🛒
-            {cartCount > 0 && (
-              <span className="absolute -top-2 -right-3 bg-volt text-black text-[0.65rem] font-mono font-semibold min-w-[1.1rem] h-[1.1rem] flex items-center justify-center rounded-full px-1">
-                {cartCount}
-              </span>
-            )}
-          </Link>
-        </div>
-        <div className="m-6">
-          {msg && (
-            <div className="mb-5 rounded-lg bg-blue-50 border border-blue-200 px-4 py-3 text-center text-sm text-blue-700">
-              {msg}
-            </div>
-          )}
-        </div>
-      </nav>
-
+      <div className="m-6">
+        {msg && (
+          <div className="mb-5 rounded-lg bg-blue-50 border border-blue-200 px-4 py-3 text-center text-sm text-blue-700">
+            {msg}
+          </div>
+        )}
+      </div>
       {products.length === 0 && <p>No Products found</p>}
       <div className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 m-7">
         {products.map((product: any) => (
