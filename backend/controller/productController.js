@@ -116,7 +116,7 @@ export const getAllCategory = async (req, res) => {
 // Get product with Category
 export const getProductWithCategory = async (req, res) => {
   try {
-    const { category } = req.params;
+    const { category } = req.body;
 
     const products = await Product.find({ category });
     if (products.length === 0) {
