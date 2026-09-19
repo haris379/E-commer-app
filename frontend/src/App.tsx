@@ -8,6 +8,7 @@ import Home from "./Pages/Home.tsx";
 import Cart from "./Pages/Cart.tsx";
 import CounterApp from "./Pages/CounterApp.tsx";
 import Navbar from "./components/Navbar.tsx";
+import Login from "./Pages/Login.tsx";
 
 const App = () => {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login-id/:id" element={<LoginWithID />} />
+        <Route path="/login" element={<Login />} />
 
         <Route path="/counter-app" element={<CounterApp />} />
 
