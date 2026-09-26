@@ -51,7 +51,7 @@ const AdminDashBoard = () => {
             </div>
 
             <div className="card overflow-x-auto">
-              <table className="w-full min-w-160 border border-black text-sm">
+              <table className="w-full min-w-[640px] border border-black text-sm">
                 <thead>
                   <tr className="bg-navy text-blacl text-left">
                     <th className="px-4 py-3 font-medium">Title</th>
@@ -62,6 +62,7 @@ const AdminDashBoard = () => {
                     </th>
                   </tr>
                 </thead>
+
                 <tbody>
                   {products.map((product: any) => (
                     <tr
@@ -71,17 +72,21 @@ const AdminDashBoard = () => {
                       <td className="px-4 py-3 font-medium text-ink">
                         {product.title}
                       </td>
+
                       <td className="px-4 py-3 price-mono text-navy">
-                        {product.price}{" "}
+                        {product.price}
                       </td>
+
                       <td className="px-4 py-3">{product.stock}</td>
-                      <td className="px-4 py-3 text-right">
+
+                      <td className="px-4 py-3 text-right whitespace-nowrap">
                         <Link
                           to={`/admin/products/update/${product._id}`}
-                          className="text-navy font-medium hover:underline mr-4"
+                          className="text-navy font-medium hover:underline mr-2 sm:mr-4"
                         >
                           Edit
                         </Link>
+
                         <button
                           onClick={() => handleDelete(product._id)}
                           className="text-sm bg-red-700 text-white px-3 py-2 rounded-xl"
