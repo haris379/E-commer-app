@@ -56,101 +56,85 @@ const Navbar = ({ onLogout }: NavbarProps) => {
   };
   return (
     <nav className="sticky top-0 z-50 w-full bg-gray-100 shadow-sm">
-      {" "}
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-        {" "}
         <div className="flex min-h-[70px] flex-col justify-center gap-3 py-3 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:py-2">
-          {" "}
-          {/* Logo + Welcome */}{" "}
+          {/* Logo + Welcome */}
           <div className="flex flex-col items-center lg:items-start">
-            {" "}
             <Link
               to="/"
               className="text-lg font-bold text-gray-800 transition hover:text-gray-600 sm:text-xl"
             >
-              {" "}
-              E-commerce App{" "}
-            </Link>{" "}
+              EasyBuy
+            </Link>
             {userId && (
               <h2 className="mt-1 text-xs font-medium text-gray-700 sm:text-sm">
-                {" "}
-                Welcome, {userName}{" "}
+                Welcome, {userName}
               </h2>
-            )}{" "}
-          </div>{" "}
-          {/* Navigation */}{" "}
+            )}
+          </div>
+          {/* Navigation */}
           <div className="flex w-full flex-wrap items-center justify-center gap-2 lg:w-auto lg:justify-end">
-            {" "}
-            {/* Cart */}{" "}
+            {/* Cart */}
             <Link
               to="/cart"
               aria-label="Shopping cart"
               className="relative flex h-10 w-10 items-center justify-center rounded-md text-lg transition hover:bg-gray-200"
             >
-              {" "}
-              🛒{" "}
+              🛒
               {cartCount > 0 && (
                 <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-volt px-1 text-[10px] font-bold text-black">
-                  {" "}
-                  {cartCount}{" "}
+                  {cartCount}
                 </span>
-              )}{" "}
-            </Link>{" "}
-            {/* Home */}{" "}
+              )}
+            </Link>
+            {/* Home */}
             <Link
               to="/"
               className="btn-primary whitespace-nowrap px-3 py-2 text-xs text-center sm:px-4 sm:text-sm"
             >
-              {" "}
-              Home{" "}
-            </Link>{" "}
-            {/* Admin */}{" "}
+              Home
+            </Link>
+            {/* Admin */}
             <Link
               to="/admin/products/"
               className="btn-primary whitespace-nowrap px-3 py-2 text-xs text-center sm:px-4 sm:text-sm"
             >
-              {" "}
-              Admin Dashboard{" "}
-            </Link>{" "}
-            {/* Counter */}{" "}
+              Admin Dashboard
+            </Link>
+            {/* Counter */}
             <Link
               to="/counter-app"
               className="btn-primary whitespace-nowrap px-3 py-2 text-xs text-center sm:px-4 sm:text-sm"
             >
-              {" "}
-              Counter App{" "}
-            </Link>{" "}
-            {/* Authentication */}{" "}
+              Counter App
+            </Link>
+            {/* Authentication */}
             {userId ? (
               <button
                 onClick={logout}
                 className="btn-primary whitespace-nowrap px-3 py-2 text-xs text-center sm:px-4 sm:text-sm"
               >
-                {" "}
-                Logout{" "}
+                Logout
               </button>
             ) : (
               <div className="flex items-center gap-2">
-                {" "}
                 <Link
                   to="/login"
                   className="btn-primary whitespace-nowrap px-3 py-2 text-xs text-center sm:px-4 sm:text-sm"
                 >
-                  {" "}
-                  Login{" "}
-                </Link>{" "}
+                  Login
+                </Link>
                 <Link
                   to="/signup"
                   className="btn-primary whitespace-nowrap px-3 py-2 text-xs text-center sm:px-4 sm:text-sm"
                 >
-                  {" "}
-                  Sign Up{" "}
-                </Link>{" "}
+                  Sign Up
+                </Link>
               </div>
-            )}{" "}
-          </div>{" "}
-        </div>{" "}
-      </div>{" "}
+            )}
+          </div>
+        </div>
+      </div>
     </nav>
   );
 };
